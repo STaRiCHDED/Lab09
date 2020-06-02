@@ -82,7 +82,32 @@ Everything up-to-date
 
 ```sh
 $ git pull origin master
+remote: Enumerating objects: 8, done.
+remote: Counting objects: 100% (8/8), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 6 (delta 2), reused 0 (delta 0), pack-reused 0
+Распаковка объектов: 100% (6/6), готово.
+Из https://github.com/STaRiCHDED/lab02
+ * branch            master     -> FETCH_HEAD
+   af8687b..03a465e  master     -> origin/master
+Обновление af8687b..03a465e
+Fast-forward
+ .gitignore |  4 ++++
+ README.md  | 31 ++++++++++++++++++++++---------
+ 2 files changed, 26 insertions(+), 9 deletions(-)
+ create mode 100644 .gitignore
 $ git log
+commit 03a465e6bccff4290d1df0b1ee0a46e88e535366 (HEAD -> master, origin/master)
+Author: STaRiCHDED <61161128+STaRiCHDED@users.noreply.github.com>
+Date:   Tue Jun 2 16:28:25 2020 +0300
+
+    Create .gitignore
+
+commit 90d660b8d31edbf44eb784cb65981235b975e7d5
+Author: STaRiCHDED <61161128+STaRiCHDED@users.noreply.github.com>
+Date:   Tue Jun 2 16:21:21 2020 +0300
+
+    Update README.md
 ```
 
 ```sh
@@ -146,15 +171,41 @@ $ edit README.md
 
 ```sh
 $ git status
+На ветке master
+Неотслеживаемые файлы:
+  (используйте «git add <файл>…», чтобы добавить в то, что будет включено в коммит)
+
+	examples/
+	include/
+	sources/
+
+ничего не добавлено в коммит, но есть неотслеживаемые файлы (используйте «git add», чтобы отслеживать их)
 $ git add .
 $ git commit -m"added sources"
+[master d54cb89] added sources
+ 4 files changed, 32 insertions(+)
+ create mode 100644 examples/example1.cpp
+ create mode 100644 examples/example2.cpp
+ create mode 100644 include/print.hpp
+ create mode 100644 sources/print.cpp
 $ git push origin master
+Username for 'https://github.com': STaRiCHDED
+Password for 'https://STaRiCHDED@github.com':************ 
+Подсчет объектов: 9, готово.
+Delta compression using up to 8 threads.
+Сжатие объектов: 100% (7/7), готово.
+Запись объектов: 100% (9/9), 1002 bytes | 334.00 KiB/s, готово.
+Total 9 (delta 0), reused 0 (delta 0)
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/STaRiCHDED/Lab02.git
+To https://github.com/STaRiCHDED/lab02.git
+   03a465e..d54cb89  master -> master
 ```
 
 ## Report
 
 ```sh
-$ cd ~/workspace/
+$ cd ~/STaRiCHDED/workspace/
 $ export LAB_NUMBER=02
 $ git clone https://github.com/tp-labs/lab${LAB_NUMBER}.git tasks/lab${LAB_NUMBER}
 $ mkdir reports/lab${LAB_NUMBER}
