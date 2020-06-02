@@ -258,6 +258,227 @@ $ gist REPORT.md
 8. Убедитель, что в pull-request пропали конфликтны. 
 9. Вмержите pull-request `patch2 -> master`.
 
+
+## Homework
+
+### Part I
+```sh
+1.
+2.
+$ mkdir homework02
+$ cd homework02
+$ subl README.md
+$ echo "# homework02" >> README.md
+$ git init
+Инициализирован пустой репозиторий Git в /home/nikitaklimov/STaRiCHDED/workspace/reports/homework02/.git/
+$ git add README.md
+$ git commit -m "first commit"
+[master (корневой коммит) bfde725] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+ $ git remote add origin https://github.com/STaRiCHDED/homework02.git
+ $ git push -u origin master
+Username for 'https://github.com': STaRiCHDED
+Password for 'https://STaRiCHDED@github.com':************ 
+Подсчет объектов: 3, готово.
+Запись объектов: 100% (3/3), 228 bytes | 228.00 KiB/s, готово.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/STaRiCHDED/homework02.git
+ * [new branch]      master -> master
+Ветка «master» отслеживает внешнюю ветку «master» из «origin».
+3.
+$ cat > hello_world.cpp <<EOF
+> #include <iosrteam>
+> 
+> using namespase std;
+> 
+> int main()
+> {
+> cout << "Hello, world!" << endl;
+> return 0;
+> }
+> EOF
+4.
+$ git add .
+5.
+$ git commit -m"added hello_world.cpp"
+ hello_world.cpp"
+[master 4f2c604] added hello_world.cpp
+1 file changed, 9 insertions(+)
+create mode 100644 hello_world.cpp/hello_world.cpp
+6.
+7.
+$ git commit -a -m "Update hello_world.cpp"
+[master d534c12] Update hello_world.cpp
+1 file changed, 7 insertions(+), 6 deletions(-)
+8.
+$ git push origin master
+Username for 'https://github.com': STaRiCHDED
+Password for 'https://STaRiCHDED@github.com': 
+Подсчет объектов: 8, готово.
+Delta compression using up to 8 threads.
+Сжатие объектов: 100% (6/6), готово.
+Запись объектов: 100% (8/8), 883 bytes | 441.00 KiB/s, готово.
+Total 8 (delta 0), reused 0 (delta 0)
+To https://github.com/STaRiCHDED/homework02.git
+   bfde725..d534c12  master -> master
+```
+
+### Part II
+```sh
+1.
+$ git branch patch1
+$ git checkout patch1
+Переключено на ветку «patch1»
+2.
+$ subl hello_world.cpp
+$ cat > hello_world.cpp <<EOF
+> #include <iosrteam>
+> int main()
+> {
+>     std::string name;
+>     getline(cin, name);
+>     std::cout << "Hello world from " << name << std::endl;
+>     return 0;
+> }
+> EOF
+3.
+$ git add .
+$ git commit -m"added1 hello_world.cpp"
+[patch1 1e8055c] added1 hello_world.cpp
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+ $ git push origin patch1
+Username for 'https://github.com': STaRiCHDED
+Password for 'https://STaRiCHDED@github.com':************ 
+Подсчет объектов: 15, готово.
+Delta compression using up to 8 threads.
+Сжатие объектов: 100% (10/10), готово.
+Запись объектов: 100% (15/15), 1.48 KiB | 1.48 MiB/s, готово.
+Total 15 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a pull request for 'patch1' on GitHub by visiting:
+remote:      https://github.com/STaRiCHDED/homework02/pull/new/patch1
+remote: 
+To https://github.com/STaRiCHDED/homework02.git
+ * [new branch]      patch1 -> patch1
+ 4.
+ 5.
+ 6.
+ $ cat > hello_world.cpp <<EOF
+> #include <iosrteam> //Создаём программу
+> int main()
+> {
+>     std::string name;
+>     getline(cin, name);
+>     std::cout << "Hello world from " << name << std::endl;
+>     return 0;
+> } //Программа завершила работу
+> EOF
+7.
+$ git commit -a -m"added1 hello_world.cpp"
+[patch1 8899416] added1 hello_world.cpp
+1 file changed, 6 insertions(+), 6 deletions(-)
+$ git push origin patch1
+Username for 'https://github.com': STaRiCHDED
+Password for 'https://STaRiCHDED@github.com': 
+Подсчет объектов: 3, готово.
+Delta compression using up to 8 threads.
+Сжатие объектов: 100% (3/3), готово.
+Запись объектов: 100% (3/3), 483 bytes | 483.00 KiB/s, готово.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/STaRiCHDED/HOMEWORK02.git
+c88e641..8899416  patch1 -> patch1
+8.
+9.
+10.
+git checkout master
+Переключено на ветку «master»
+Ваша ветка обновлена в соответствии с «origin/master».
+$ git merge patch1
+Обновление a1a41d1..8899416
+Fast-forward
+ hello_world.cpp | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+ 11.
+ $ git log
+commit 8899416fcdbf9dcd292fdd6506208a5b09a0e41d (HEAD -> master, origin/patch1, patch1)
+Author: STaRiCHDED <nik179804@gmail.com>
+Date:   Tue Jun 2 22:30:32 2020 +0300
+
+    added1 hello_world.cpp
+
+commit c88e6419a05732d0dda8ab71ae2d6ecc16d2d27b
+Author: STaRiCHDED <nik179804@gmail.com>
+Date:   Tue Jun 2 22:20:56 2020 +0300
+
+    added1 hello_world.cpp
+
+commit a1a41d10ed9b8169b39fbb48a33a38c2252fde6b (origin/master)
+Author: STaRiCHDED <nik179804@gmail.com>
+Date:   Tue Jun 2 22:14:42 2020 +0300
+
+    Update hello_world.cpp
+
+commit 338ae9310c0f674b270daec3bb9305c2a13b521c
+Author: STaRiCHDED <nik179804@gmail.com>
+Date:   Tue Jun 2 22:12:06 2020 +0300
+
+    added hello_world.cpp
+
+commit e475970639030df71e2c75bca5d9177d7a0be9ef
+Author: STaRiCHDED <nik179804@gmail.com>
+Date:   Tue Jun 2 22:08:26 2020 +0300
+12.
+$ git branch -d patch1
+Ветка patch1 удалена (была 8899416).
+```
+### Part III
+```sh
+1.
+$ git branch patch2
+$ git checkout patch2
+Переключено на ветку «patch2»
+2.
+$ clang-format -style=Mozilla -i hello_world.cpp
+3.
+$ git add .
+$ git commit -m"added2 hello_world.cpp"
+[patch2 7004db4] added2 hello_world.cpp
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+$ git push origin patch2
+Username for 'https://github.com': STaRiCHDED
+Password for 'https://STaRiCHDED@github.com': 
+Подсчет объектов: 18, готово.
+Delta compression using up to 8 threads.
+Сжатие объектов: 100% (16/16), готово.
+Запись объектов: 100% (18/18), 2.05 KiB | 2.05 MiB/s, готово.
+Total 18 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+remote: 
+remote: Create a pull request for 'patch2' on GitHub by visiting:
+remote:      https://github.com/STaRiCHDED/HOMEWORK02/pull/new/patch2
+remote: 
+To https://github.com/STaRiCHDED/HOMEWORK02.git
+ * [new branch]      patch2 -> patch2
+4.
+5.
+6.
+$git checkout master
+$ git pull origin master
+$ git checkout patch2
+$ git rebase master # Конфликт слияния
+$ edit hello_world.cpp # Ручное разрешение конфликта
+$ git add hello_world.cpp
+$ git commit -m "Fix conflicts"
+$ git rebase --continue
+$ git checkout master
+$ git merge patch2 
+7.
+git push -f origin patch2
+8.
+9.
+```
+
 ## Links
 
 - [hub](https://hub.github.com/)
