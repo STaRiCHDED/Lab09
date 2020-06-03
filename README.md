@@ -333,6 +333,39 @@ $ gist REPORT.md
 
 **Удачной стажировки!**
 
+## Homework
+### Part 1
+```sh
+1.
+$ mkdir HOMEWORK03
+$ cd HOMEWORK03
+$ git clone https://github.com/tp-labs/lab03 tmp
+$ cd formatter_lib
+$ cat > CMakeLists.txt <<EOF
+cmake_minimum_required(VERSION 3.10)
+project(formatter)
+EOF
+$ cat >> CMakeLists.txt <<EOF
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+EOF
+$cat >> CMakeLists.txt <<EOF
+add_library(formatter STATIC \${CMAKE_CURRENT_SOURCE_DIR}/formatter.cpp)
+EOF
+$cat >> CMakeLists.txt <<EOF
+include_directories(\${CMAKE_CURRENT_SOURCE_DIR})
+EOF
+$ cmake -H. -B_build
+$ cmake --build _build
+$ ls _build/libformatter.a
+```
+
+### Part 2
+```sh
+$ cd ..
+$ cd
+```
+
 ## Links
 - [Основы сборки проектов на С/C++ при помощи CMake](https://eax.me/cmake/)
 - [CMake Tutorial](http://neerc.ifmo.ru/wiki/index.php?title=CMake_Tutorial)
