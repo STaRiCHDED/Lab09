@@ -363,7 +363,64 @@ $ ls _build/libformatter.a
 ### Part 2
 ```sh
 $ cd ..
-$ cd
+$ cd formatter_ex_lib
+$ cat > CMakeLists.txt <<EOF
+> cmake_minimum_required(VERSION 3.10)
+> project(formatter_ex)
+> EOF
+$ cat > CMakeLists.txt <<EOF
+> set(CMAKE_CXX_STANDARD 11)
+> set(CMAKE_CXX_STANDARD_REQUIRED ON)
+> set(CMAKE_CURRENT_SOURCE_DIR /home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp/formatter_ex_lib)
+> EOF
+$ cat >> CMakeLists.txt <<EOF
+> add_library(formatter_ex STATIC \${CMAKE_CURRENT_SOURCE_DIR}/formatter_ex.cpp)
+> EOF
+$ cat >> CMakeLists.txt <<EOF
+> include_directories(\${CMAKE_CURRENT_SOURCE_DIR})
+> EOF
+$ cat >> CMakeLists.txt <<EOF
+> include_directories(/home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp/formatter_lib)
+> target_link_libraries(formatter_ex formatter)
+> EOF
+$ cmake -H. -B_build
+$ cmake --build _build
+$ cd ..
+$ git remote remove origin
+$ git remote add origin https://github.com/STaRiCHDED/HOMEWORK03.git
+$ git add .
+$ git commit -m"Homework03"
+$ git push origin master
+```
+### Part 3
+```sh
+1.
+$ cd hello_world_application
+$ cat >CMakeLists.txt<<EOF
+> cmake_minimum_required(VERSION 3.10)
+> project(hello_world)
+> 
+> set(CMAKE_CXX_STANDARD 11)
+> set(CMAKE_CXX_STANDARD_REQUIRED ON)
+> set(CMAKE_CURRENT_SOURCE_DIR /home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp)
+> 
+> add_executable(hello_world \${CMAKE_CURRENT_SOURCE_DIR}/hello_world_application/hello_world.cpp)
+> 
+> include_directories(\${CMAKE_CURRENT_SOURCE_DIR}/formatter_lib \${CMAKE_CURRENT_SOURCE_DIR}/formatter_ex_lib)
+> 
+> add_library(hello STATIC /home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp/formatter_ex_lib/formatter_ex.cpp /home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp/formatter_lib/formatter.cpp)
+> 
+> target_link_libraries(hello_world hello)
+> EOF
+$ cmake -H. -B_build
+$ cmake --build _build
+$ _build/hello_world
+-------------------------
+hello, world!
+-------------------------
+2.
+cd ..
+cd solver_application
 ```
 
 ## Links
