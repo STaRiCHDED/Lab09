@@ -310,21 +310,21 @@ $ gist REPORT.md
 ## Homework
 
 Представьте, что вы стажер в компании "Formatter Inc.".
-### Задание 1
+-[x] ### Задание 1
 Вам поручили перейти на систему автоматизированной сборки **CMake**.
 Исходные файлы находятся в директории [formatter_lib](formatter_lib).
 В этой директории находятся файлы для статической библиотеки *formatter*.
 Создайте `CMakeList.txt` в директории [formatter_lib](formatter_lib),
 с помощью которого можно будет собирать статическую библиотеку *formatter*.
 
-### Задание 2
+-[x] ### Задание 2
 У компании "Formatter Inc." есть перспективная библиотека,
 которая является расширением предыдущей библиотеки. Т.к. вы уже овладели
 навыком созданием `CMakeList.txt` для статической библиотеки *formatter*, ваш 
 руководитель поручает заняться созданием `CMakeList.txt` для библиотеки 
 *formatter_ex*, которая в свою очередь использует библиотеку *formatter*.
 
-### Задание 3
+-[x] ### Задание 3
 Конечно же ваша компания предоставляет примеры использования своих библиотек.
 Чтобы продемонстрировать как работать с библиотекой *formatter_ex*,
 вам необходимо создать два `CMakeList.txt` для двух простых приложений:
@@ -419,8 +419,44 @@ $ _build/hello_world
 hello, world!
 -------------------------
 2.
-cd ..
-cd solver_application
+$ cd ..
+$ cd solver_application
+$ cat >CMakeLists.txt<<EOF
+cmake_minimum_required(VERSION 3.10)
+project(Solver)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CURRENT_SOURCE_DIR /home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp)
+add_executable(Solver ${CMAKE_CURRENT_SOURCE_DIR}/solver_application/equation.cpp)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/formatter_lib ${CMAKE_CURRENT_SOURCE_DIR}/formatter_ex_lib ${CMAKE_CURRENT_SOURCE_DIR}/solver_lib)
+add_library(solver STATIC /home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp/solver_lib/solver.cpp 
+/home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp/formatter_ex_lib/formatter_ex.cpp 
+/home/nikitaklimov/STaRiCHDED/workspace/projects/HOMEWORK03/tmp/formatter_lib/formatter.cpp)
+target_link_libraries(Solver solver)
+$ cmake -H. -B_build
+$ cmake --build _build
+$ _build/Solver
+1
+2
+3
+-------------------------
+error: discriminant < 0
+-------------------------
+
+$ _build/Solver
+1  
+2
+1
+-------------------------
+x1 = -1.000000
+-------------------------
+-------------------------
+x2 = -1.000000
+-------------------------
+$ cd ..
+$ git add .
+$ git commit -a -m"HelloandSolve"
+$ git push origin master
 ```
 
 ## Links
