@@ -3,57 +3,76 @@
 ## Tutorial
 ```sh
 $ export GITHUB_USERNAME=STaRiCHDED
-$ export GITHUB_TOKEN=*************************************
+alias gsed=sed
 $ cd ${GITHUB_USERNAME}/workspace
 $  pushd .
 ~/STaRiCHDED/workspace ~/STaRiCHDED/workspace
 $ source scripts/activate
-$ git clone https://github.com/${GITHUB_USERNAME}/Lab03 projects/Lab05
-Клонирование в «projects/Lab05»…
+$ $ git clone https://github.com/${GITHUB_USERNAME}/Lab04 projects/Lab05
 $ cd projects/Lab05
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/Lab05
-$ cat > .travis.yml <<EOF
-> language: cpp
-> EOF
-$ cat >> .travis.yml <<EOF
+$ mkdir third-party
+$ git submodule add https://github.com/google/googletest third-party/gtest
+$ cd third-party/gtest && git checkout release-1.8.1 && cd ../..
+$ git add third-party/gtest
+$ git commit -m"added gtest framework"
+$ gsed -i '/option(BUILD_EXAMPLES "Build examples" OFF)/a\
+> option(BUILD_TESTS "Build tests" OFF)
+> ' CMakeLists.txt
+$ cat >> CMakeLists.txt <<EOF
 > 
-> script:
-> - cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
-> - cmake --build _build
-> - cmake --build _build --target install
+> if(BUILD_TESTS)
+>   enable_testing()
+>   add_subdirectory(third-party/gtest)
+>   file(GLOB \${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
+>   add_executable(check \${\${PROJECT_NAME}_TEST_SOURCES})
+>   target_link_libraries(check \${PROJECT_NAME} gtest_main)
+>   add_test(NAME check COMMAND check)
+> endif()
 > EOF
-$ cat >> .travis.yml <<EOF
+$ mkdir tests
+$ cat > tests/test1.cpp <<EOF
+> #include <print.hpp>
 > 
-> addons:
->   apt:
->     sources:
->       - george-edison55-precise-backports
->     packages:
->       - cmake
->       - cmake-data
+> #include <gtest/gtest.h>
+> 
+> TEST(Print, InFileStream)
+> {
+>   std::string filepath = "file.txt";
+>   std::string text = "hello";
+>   std::ofstream out{filepath};
+> 
+>   print(text, out);
+>   out.close();
+> 
+>   std::string result;
+>   std::ifstream in{filepath};
+>   in >> result;
+> 
+>   EXPECT_EQ(result, text);
+> }
 > EOF
-$ travis login --github-token ${GITHUB_TOKEN}
-Successfully logged in as STaRiCHDED!
-$ travis lint
-Hooray, .travis.yml looks valid :)
-$ ex -sc '1i|[![Build Status](https://travis-ci.com/STaRiCHDED/Lab05.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab05)' -cx README.md
-$ cat README.md
+$ cmake -H. -B_build -DBUILD_TESTS=ON
+$ cmake --build _build
+$ cmake --build _build --target test
+$ _build/check
+$ cmake --build _build --target test -- ARGS=--verbose
+$ gsed -i 's/Lab04/Lab05/g' README.md
+$ gsed -i 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml
+$  gsed -i '/cmake --build _build --target install/a\
+> - cmake --build _build --target test -- ARGS=--verbose
+> ' .travis.yml
+$  travis lint
 $ git add .travis.yml
-$ git add README.md
-$ git commit -m"added CI"
+$ git add tests
+$ git add -p
+$  git commit -m"added tests"
 $ git push origin master
-
-
-$ travis lint # Проверяет.travis.yml на ошибки, предупреждения
-$ travis accounts # Отображает всех учетных записей, для которых можно настроить репозиторий
-$ travis sync # Запускает новую синхронизацию с GitHub
-$ travis repos # Перечисляет репозитории, на которые пользователь имеет определенные разрешения.
-$ travis enable # Активирует проект на TravisCI
-$ travis whatsup # Перечисляет самые последние изменения
-$ travis branches # Показывает последнюю информацию для каждой ветки
-$ travis history # Выводит историю сборки проектов
-$ travis show # Отображает общую информацию о последней сборке
+$ travis login --auto
+$ travis enable
+$ mkdir artifacts
+$ sleep 20s && gnome-screenshot --file artifacts/screenshot.png
 ```
 ### Laboratory work III
 
