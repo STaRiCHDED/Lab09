@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/STaRiCHDED/Lab05.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab05)
+[![Build Status](https://travis-ci.com/STaRiCHDED/Lab06.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab06)
 ## Laboratory work V
 ## Tutorial
 ```sh
@@ -8,10 +8,10 @@ $ cd ${GITHUB_USERNAME}/workspace
 $  pushd .
 ~/STaRiCHDED/workspace ~/STaRiCHDED/workspace
 $ source scripts/activate
-$ $ git clone https://github.com/${GITHUB_USERNAME}/Lab04 projects/Lab05
-$ cd projects/Lab05
+$ $ git clone https://github.com/${GITHUB_USERNAME}/Lab04 projects/Lab06
+$ cd projects/Lab06
 $ git remote remove origin
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/Lab05
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/Lab06
 $ mkdir third-party
 $ git submodule add https://github.com/google/googletest third-party/gtest
 $ cd third-party/gtest && git checkout release-1.8.1 && cd ../..
@@ -58,7 +58,7 @@ $ cmake --build _build
 $ cmake --build _build --target test
 $ _build/check
 $ cmake --build _build --target test -- ARGS=--verbose
-$ gsed -i 's/Lab04/Lab05/g' README.md
+$ gsed -i 's/Lab04/Lab06/g' README.md
 $ gsed -i 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml
 $  gsed -i '/cmake --build _build --target install/a\
 > - cmake --build _build --target test -- ARGS=--verbose
