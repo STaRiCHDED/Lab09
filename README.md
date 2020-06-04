@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/STaRiCHDED/Lab05.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab05)
+
 ## Laboratory work IV
 ## Tutorial
 ```sh
