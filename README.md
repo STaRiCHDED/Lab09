@@ -1,5 +1,48 @@
 [![Build Status](https://travis-ci.com/STaRiCHDED/Lab04.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab04)
-## Laboratory work II
+## Laboratory work IV
+## Tutorial
+```sh
+$ export GITHUB_USERNAME=STaRiCHDED
+$ export GITHUB_TOKEN=*************************************
+$ cd ${GITHUB_USERNAME}/workspace
+$  pushd .
+~/STaRiCHDED/workspace ~/STaRiCHDED/workspace
+$ source scripts/activate
+$ git clone https://github.com/${GITHUB_USERNAME}/Lab03 projects/Lab04
+Клонирование в «projects/Lab04»…
+$ cd projects/Lab04
+$ git remote remove origin
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/Lab04
+$ cat > .travis.yml <<EOF
+> language: cpp
+> EOF
+$ cat >> .travis.yml <<EOF
+> 
+> script:
+> - cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
+> - cmake --build _build
+> - cmake --build _build --target install
+> EOF
+$ cat >> .travis.yml <<EOF
+> 
+> addons:
+>   apt:
+>     sources:
+>       - george-edison55-precise-backports
+>     packages:
+>       - cmake
+>       - cmake-data
+> EOF
+$ travis login --github-token ${GITHUB_TOKEN}
+Successfully logged in as STaRiCHDED!
+$ travis lint
+Hooray, .travis.yml looks valid :)$ ex -sc '1i|[![Build Status](https://travis-ci.com/STaRiCHDED/Lab04.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab04)' -cx README.md
+$ cat README.md
+$ git add .travis.yml
+$ git add README.md
+$ git commit -m"added CI"
+$ git push origin master
+```
 ### Laboratory work III
 
 <a href="https://yandex.ru/efir/?stream_id=vjKAlxJ0UQrs"><img src="https://raw.githubusercontent.com/tp-labs/lab03/master/preview.png" width="640"/></a>
