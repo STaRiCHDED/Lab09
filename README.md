@@ -42,6 +42,17 @@ $ git add .travis.yml
 $ git add README.md
 $ git commit -m"added CI"
 $ git push origin master
+
+
+$ travis lint # Проверяет.travis.yml на ошибки, предупреждения
+$ travis accounts # Отображает всех учетных записей, для которых можно настроить репозиторий
+$ travis sync # Запускает новую синхронизацию с GitHub
+$ travis repos # Перечисляет репозитории, на которые пользователь имеет определенные разрешения.
+$ travis enable # Активирует проект на TravisCI
+$ travis whatsup # Перечисляет самые последние изменения
+$ travis branches # Показывает последнюю информацию для каждой ветки
+$ travis history # Выводит историю сборки проектов
+$ travis show # Отображает общую информацию о последней сборке
 ```
 ### Laboratory work III
 
