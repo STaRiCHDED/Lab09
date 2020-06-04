@@ -1,78 +1,147 @@
 [![Build Status](https://travis-ci.com/STaRiCHDED/Lab06.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab06)
-## Laboratory work V
+## Laboratory work VI
 ## Tutorial
 ```sh
 $ export GITHUB_USERNAME=STaRiCHDED
-alias gsed=sed
+$ export GITHUB_EMAIL=nik179804@gmail.com
+$ sudo apt install vim
+$ alias edit=vim
+$ alias gsed=sed
 $ cd ${GITHUB_USERNAME}/workspace
-$  pushd .
-~/STaRiCHDED/workspace ~/STaRiCHDED/workspace
+$ pushd .
 $ source scripts/activate
-$ $ git clone https://github.com/${GITHUB_USERNAME}/Lab04 projects/Lab06
+$ git clone https://github.com/${GITHUB_USERNAME}/Lab05 projects/Lab06
+$ cd projects/
 $ cd projects/Lab06
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/Lab06
-$ mkdir third-party
-$ git submodule add https://github.com/google/googletest third-party/gtest
-$ cd third-party/gtest && git checkout release-1.8.1 && cd ../..
-$ git add third-party/gtest
-$ git commit -m"added gtest framework"
-$ gsed -i '/option(BUILD_EXAMPLES "Build examples" OFF)/a\
-> option(BUILD_TESTS "Build tests" OFF)
+$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_STRING "v\${PRINT_VERSION}")
 > ' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION\
+>   \${PRINT_VERSION_MAJOR}.\${PRINT_VERSION_MINOR}.\${PRINT_VERSION_PATCH}.\${PRINT_VERSION_TWEAK})
+> ' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_TWEAK 0)
+> ' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_PATCH 0)
+> ' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_MINOR 1)
+> ' CMakeLists.txt
+$ gsed -i '/project(print)/a\
+> set(PRINT_VERSION_MAJOR 0)
+> ' CMakeLists.txt
+$  touch DESCRIPTION && edit DESCRIPTION
+$ touch ChangeLog.md
+$ export DATE="`LANG=en_US date +'%a %b %d %Y'`"
+ cat > ChangeLog.md <<EOF
+> * ${DATE} ${GITHUB_USERNAME} <${GITHUB_EMAIL}> 0.1.0.0
+> - Initial RPM release
+> EOF
+$ cat > CPackConfig.cmake <<EOF
+> include(InstallRequiredSystemLibraries)
+> EOF
+$ cat >> CPackConfig.cmake <<EOF
+> set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
+> set(CPACK_PACKAGE_VERSION_MAJOR \${PRINT_VERSION_MAJOR})
+> set(CPACK_PACKAGE_VERSION_MINOR \${PRINT_VERSION_MINOR})
+> set(CPACK_PACKAGE_VERSION_PATCH \${PRINT_VERSION_PATCH})
+> set(CPACK_PACKAGE_VERSION_TWEAK \${PRINT_VERSION_TWEAK})
+> set(CPACK_PACKAGE_VERSION \${PRINT_VERSION})
+> set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
+> set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static C++ library for printing")
+> EOF
+$ cat >> CPackConfig.cmake <<EOF
+> 
+> set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+> set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+> EOF
+$ cat >> CPackConfig.cmake <<EOF
+> 
+> set(CPACK_RPM_PACKAGE_NAME "print-devel")
+> set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+> set(CPACK_RPM_PACKAGE_GROUP "print")
+> set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
+> set(CPACK_RPM_PACKAGE_RELEASE 1)
+> EOF
+$ cat >> CPackConfig.cmake <<EOF
+> 
+> set(CPACK_DEBIAN_PACKAGE_NAME "libprint-dev")
+> set(CPACK_DEBIAN_PACKAGE_PREDEPENDS "cmake >= 3.0")
+> set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+> EOF
+$ cat >> CPackConfig.cmake <<EOF
+> 
+> include(CPack)
+> EOF
 $ cat >> CMakeLists.txt <<EOF
 > 
-> if(BUILD_TESTS)
->   enable_testing()
->   add_subdirectory(third-party/gtest)
->   file(GLOB \${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
->   add_executable(check \${\${PROJECT_NAME}_TEST_SOURCES})
->   target_link_libraries(check \${PROJECT_NAME} gtest_main)
->   add_test(NAME check COMMAND check)
-> endif()
+> include(CPackConfig.cmake)
 > EOF
-$ mkdir tests
-$ cat > tests/test1.cpp <<EOF
-> #include <print.hpp>
-> 
-> #include <gtest/gtest.h>
-> 
-> TEST(Print, InFileStream)
-> {
->   std::string filepath = "file.txt";
->   std::string text = "hello";
->   std::ofstream out{filepath};
-> 
->   print(text, out);
->   out.close();
-> 
->   std::string result;
->   std::ifstream in{filepath};
->   in >> result;
-> 
->   EXPECT_EQ(result, text);
-> }
-> EOF
-$ cmake -H. -B_build -DBUILD_TESTS=ON
-$ cmake --build _build
-$ cmake --build _build --target test
-$ _build/check
-$ cmake --build _build --target test -- ARGS=--verbose
-$ gsed -i 's/Lab04/Lab06/g' README.md
-$ gsed -i 's/\(DCMAKE_INSTALL_PREFIX=_install\)/\1 -DBUILD_TESTS=ON/' .travis.yml
-$  gsed -i '/cmake --build _build --target install/a\
-> - cmake --build _build --target test -- ARGS=--verbose
-> ' .travis.yml
-$  travis lint
-$ git add .travis.yml
-$ git add tests
-$ git add -p
-$  git commit -m"added tests"
-$ git push origin master
+$ gsed -i 's/Lab05/Lab06/g' README.md
+$ git add .
+$  git commit -m"added cpack config"
+[master 9c2cf40] added cpack config
+ 5 files changed, 40 insertions(+), 5 deletions(-)
+ create mode 100644 CPackConfig.cmake
+ create mode 100644 ChangeLog.md
+ create mode 100644 DESCRIPTION
+$ git tag v0.1.0.0
+$ git push origin master --tags
 $ travis login --auto
+Successfully logged in as STaRiCHDED!
 $ travis enable
-$ mkdir artifacts
-$ sleep 20s && gnome-screenshot --file artifacts/screenshot.png
+Detected repository as STaRiCHDED/Lab06, is this correct? |yes| y
+STaRiCHDED/Lab06: enabled :)
+$ cmake -H. -B_build
+-- The C compiler identification is GNU 7.5.0
+-- The CXX compiler identification is GNU 7.5.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/nikitaklimov/STaRiCHDED/workspace/projects/Lab06/_build
+$ cmake --build _build
+Scanning dependencies of target print
+[ 50%] Building CXX object CMakeFiles/print.dir/sources/print.cpp.o
+[100%] Linking CXX static library libprint.a
+[100%] Built target print
+$ cd _build
+$ cpack -G "TGZ"
+$ cd ..
+$ cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
+$ cmake --build _build --target package
+[100%] Built target print
+Run CPack packaging tool...
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print
+CPack: Create package
+CPack: - package: /home/nikitaklimov/STaRiCHDED/workspace/projects/Lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+$ mv _build/*.tar.gz artifacts
+$ tree artifacts
+artifacts
+├── print-0.1.0.0-Linux.tar.gz
+└── screenshot.png
+
+0 directories, 2 files
+$ git add .
+$ git commit -m"uploadlab6"
+$ git push origin master
 ```
 ### Laboratory work III
 
