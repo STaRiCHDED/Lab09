@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/STaRiCHDED/Lab04.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab04)
+[![Build Status](https://travis-ci.com/STaRiCHDED/Lab05.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab05)
 ## Laboratory work IV
 ## Tutorial
 ```sh
@@ -8,11 +8,11 @@ $ cd ${GITHUB_USERNAME}/workspace
 $  pushd .
 ~/STaRiCHDED/workspace ~/STaRiCHDED/workspace
 $ source scripts/activate
-$ git clone https://github.com/${GITHUB_USERNAME}/Lab03 projects/Lab04
-Клонирование в «projects/Lab04»…
-$ cd projects/Lab04
+$ git clone https://github.com/${GITHUB_USERNAME}/Lab03 projects/Lab05
+Клонирование в «projects/Lab05»…
+$ cd projects/Lab05
 $ git remote remove origin
-$ git remote add origin https://github.com/${GITHUB_USERNAME}/Lab04
+$ git remote add origin https://github.com/${GITHUB_USERNAME}/Lab05
 $ cat > .travis.yml <<EOF
 > language: cpp
 > EOF
@@ -37,7 +37,7 @@ $ travis login --github-token ${GITHUB_TOKEN}
 Successfully logged in as STaRiCHDED!
 $ travis lint
 Hooray, .travis.yml looks valid :)
-$ ex -sc '1i|[![Build Status](https://travis-ci.com/STaRiCHDED/Lab04.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab04)' -cx README.md
+$ ex -sc '1i|[![Build Status](https://travis-ci.com/STaRiCHDED/Lab05.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab05)' -cx README.md
 $ cat README.md
 $ git add .travis.yml
 $ git add README.md
