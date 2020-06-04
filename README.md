@@ -36,7 +36,8 @@ $ cat >> .travis.yml <<EOF
 $ travis login --github-token ${GITHUB_TOKEN}
 Successfully logged in as STaRiCHDED!
 $ travis lint
-Hooray, .travis.yml looks valid :)$ ex -sc '1i|[![Build Status](https://travis-ci.com/STaRiCHDED/Lab04.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab04)' -cx README.md
+Hooray, .travis.yml looks valid :)
+$ ex -sc '1i|[![Build Status](https://travis-ci.com/STaRiCHDED/Lab04.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab04)' -cx README.md
 $ cat README.md
 $ git add .travis.yml
 $ git add README.md
