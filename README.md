@@ -1,6 +1,14 @@
 [![Build Status](https://travis-ci.com/STaRiCHDED/Lab09.svg?branch=master)](https://travis-ci.com/STaRiCHDED/Lab09)
 ## Laboratory work IX
 
+<a href="https://yandex.ru/efir/?stream_id=vYrKRcFKi46o"><img src="https://raw.githubusercontent.com/tp-labs/lab09/master/preview.png" width="640"/></a>
+
+Данная лабораторная работа посвещена изучению процесса создания артефактов на примере **Github Release**
+
+```sh
+$ open https://help.github.com/articles/creating-releases/
+```
+
 ## Tasks
 
 - [x] 1. Создать публичный репозиторий с названием **lab09** на сервисе **GitHub**
@@ -8,6 +16,7 @@
 - [x] 3. Получить токен для доступа к репозиториям сервиса **GitHub**
 - [x] 4. Выполнить инструкцию учебного материала
 - [x] 5. Составить отчет и отправить ссылку личным сообщением в **Slack**
+
 ## Tutorial
 ```sh
 $ export GITHUB_TOKEN=8e2cdb55a74085a6a33c6b65de607324f84e226e
@@ -240,8 +249,13 @@ $ gist REPORT.md
 ```
 
 ## Links
-- [BOOK](https://www.dockerbook.com/)
-- [Instructions](https://docs.docker.com/engine/reference/builder/)
+
+- [Create Release](https://help.github.com/articles/creating-releases/)
+- [Get GitHub Token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
+- [Signing Commits](https://help.github.com/articles/signing-commits-with-gpg/)
+- [Go Setup](http://www.golangbootcamp.com/book/get_setup)
+- [github-release](https://github.com/aktau/github-release)
+
 ```
 Copyright (c) 2015-2020 The ISC Authors
 ```
